@@ -17,6 +17,7 @@
   "dependencies": {
     "babel": "^5.8.38",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^6.11.2"
   }
 }

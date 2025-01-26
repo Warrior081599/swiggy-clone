@@ -1,6 +1,8 @@
 import CardContainer from "./CardContainer.jsx";
 import { useState, useEffect, use } from "react";
 import Shimmer from "./Shimmer.jsx";
+import { RESTURENT_URL } from "../utils/constants.js";
+import { Link } from "react-router-dom";
 
 const CardMainContainer = () => {
   const [resList, setResList] = useState([]);
@@ -8,8 +10,7 @@ const CardMainContainer = () => {
   const [filteredValue, setFilteredValue] = useState([]);
 
   useEffect(() => {
-    const URL =
-      " https://thingproxy.freeboard.io/fetch/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.8942172&lng=77.7238813&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+    const URL = RESTURENT_URL;
 
     const output = async () => {
       try {
@@ -80,7 +81,12 @@ const CardMainContainer = () => {
       <div className="multi-card-container">
         {filteredValue.map((detailsObj) => {
           return (
-            <CardContainer key={detailsObj?.info?.id} resData={detailsObj} />
+            <Link
+              to={"/restaurant/" + detailsObj?.info?.id}
+              key={detailsObj?.info?.id}
+            >
+              <CardContainer resData={detailsObj} />
+            </Link>
           );
         })}
       </div>

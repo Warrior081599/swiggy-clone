@@ -25,6 +25,13 @@
   padding: 10px;
 }
 
+.nav-items > :link {
+  padding: 10px;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
 .filter-container {
   display: flex;
   justify-content: space-between;
@@ -121,4 +128,12 @@
   background-color: bisque;
   border: 2px solid black;
   cursor: pointer;
+}
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px dotted black;
+  padding: 10px;
+  margin-top: 10px;
 }
