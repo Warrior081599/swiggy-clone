@@ -1,48 +1,24 @@
 import CardContainer from "./CardContainer.jsx";
-import { useState, useEffect, use } from "react";
+import { useState } from "react";
 import Shimmer from "./Shimmer.jsx";
 import { RESTURENT_URL } from "../utils/constants.js";
 import { Link } from "react-router-dom";
+import useMainResMenu from "../utils/useMainResMenu.js";
 
 const CardMainContainer = () => {
-  const [resList, setResList] = useState([]);
+  const [resList, filteredValue, setResList, setFilteredValue] =
+    useMainResMenu(RESTURENT_URL);
   const [searchValue, setSearchValue] = useState("");
-  const [filteredValue, setFilteredValue] = useState([]);
-
-  useEffect(() => {
-    const URL = RESTURENT_URL;
-
-    const output = async () => {
-      try {
-        const response = await fetch(URL);
-        const data = await response.json();
-
-        setResList(
-          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants
-        );
-
-        setFilteredValue(
-          data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-            ?.restaurants
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    output();
-  }, []);
 
   //Conditional Rendering : THis is called conditional rendering
 
   return resList.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="main-card-container">
-      <div className="filter-container">
+    <div>
+      <div className="flex items-center justify-between ">
         <button
-          className="top-rated-btn" //We made a button to filter the top rated rersturent that have rating of more than 4 stars
+          className="bg-gray-400 flex ml-8 pl-2 pb-1 mt-3 mb-3 rounded-xl w-[200px] h-[30px] hover:border-2 hover:border-black hover:bg-gray-700 hover:text-white hover:border-solid" //We made a button to filter the top rated rersturent that have rating of more than 4 stars
           onClick={() => {
             const output = resList.filter((resturent) => {
               return resturent.info.avgRating > 4.4;
@@ -54,15 +30,16 @@ const CardMainContainer = () => {
           Filter Top Rated Resturent
         </button>
 
-        <div className="search-container">
+        <div className="mr-8 flex flex-row mt-4 items-center">
           <input
+            className="placeholder-black border-solid border-1 w-[200px] h-[40px] border-black p-1 pl-4 mr-6 rounded-xl bg-gray-100 hover:bg-blue-300 hover:placeholder-white"
             type="text"
             placeholder="Search the food"
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
           ></input>
           <button
-            className="search-button"
+            className="bg-gray-400 flex ml-2 pl-2 pb-1 mt-3 mb-3 rounded-xl w-[70px] h-[30px] hover:border-2 hover:border-black hover:bg-gray-700 hover:text-white hover:border-solid"
             onClick={() => {
               const output = resList.filter((resturent) =>
                 resturent.info.name
@@ -78,12 +55,12 @@ const CardMainContainer = () => {
         </div>
       </div>
 
-      <div className="multi-card-container">
+      <div className="flex flex-row flex-wrap mt-4 p-4">
         {filteredValue.map((detailsObj) => {
           return (
             <Link
               to={"/restaurant/" + detailsObj?.info?.id}
-              key={detailsObj?.info?.id}
+              key={`${detailsObj.info.id}-${detailsObj.info.name}`}
             >
               <CardContainer resData={detailsObj} />
             </Link>

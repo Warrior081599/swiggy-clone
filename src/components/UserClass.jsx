@@ -5,49 +5,36 @@ class UserClass extends React.Component {
     super(props);
     const { name } = this.props;
     this.name = name;
-
     this.state = {
       userInfo: {
         name: "",
         bio: "",
         location: "",
+        avatar_url: "",
       },
     };
-
-    console.log("Constructor method of the child called");
   }
 
   async componentDidMount() {
     const response = await fetch("https://api.github.com/users/Warrior081599");
     const jsonData = await response.json();
-
     this.setState({
       userInfo: jsonData,
     });
-
-    this.timer = setInterval(() => {
-      console.log("hello from setInterval");
-    }, 1000);
-  }
-
-  componentDidUpdate() {
-    console.log("componentDid update is called from Child class component");
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-    console.log("ComponentWillUnmount called from child");
   }
 
   render() {
-    console.log("Child render method called");
     const { name, bio, location, avatar_url } = this.state.userInfo;
     return (
-      <div>
-        <img src={avatar_url}></img>
-        <h2>{name}</h2>
-        <p>{bio}</p>
-        <p>{location}</p>
+      <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg shadow-md max-w-sm mx-auto">
+        <img
+          src={avatar_url}
+          alt="User Avatar"
+          className="w-32 h-32 rounded-full object-cover border-4 border-gray-300"
+        />
+        <h2 className="text-xl font-bold mt-4">{name}</h2>
+        <p className="text-gray-600 mt-2">{bio}</p>
+        <p className="text-gray-500 mt-2">{location}</p>
       </div>
     );
   }
