@@ -1,4 +1,4 @@
-import CardContainer from "./CardContainer.jsx";
+import CardContainer, { CardWithPromotedLabel } from "./CardContainer.jsx";
 import { useState } from "react";
 import Shimmer from "./Shimmer.jsx";
 import { RESTURENT_URL } from "../utils/constants.js";
@@ -9,6 +9,8 @@ const CardMainContainer = () => {
   const [resList, filteredValue, setResList, setFilteredValue] =
     useMainResMenu(RESTURENT_URL);
   const [searchValue, setSearchValue] = useState("");
+
+  const CardPromotedLable = CardWithPromotedLabel(CardContainer);
 
   //Conditional Rendering : THis is called conditional rendering
 
@@ -32,7 +34,7 @@ const CardMainContainer = () => {
 
         <div className="mr-8 flex flex-row mt-4 items-center">
           <input
-            className="placeholder-black border-solid border-1 w-[200px] h-[40px] border-black p-1 pl-4 mr-6 rounded-xl bg-gray-100 hover:bg-blue-300 hover:placeholder-white"
+            className="placeholder-black border-solid border-1 w-[200px] h-[40px] border-black p-1 pl-4 mr-6 rounded-xl bg-gray-100 hover:bg-blue-300 hover:placeholder-white hover:scale-120 hover:duration-300 hover:ease-in-out"
             type="text"
             placeholder="Search the food"
             value={searchValue}
@@ -62,7 +64,12 @@ const CardMainContainer = () => {
               to={"/restaurant/" + detailsObj?.info?.id}
               key={`${detailsObj.info.id}-${detailsObj.info.name}`}
             >
-              <CardContainer resData={detailsObj} />
+              {/** Here i need to Render the HOC with promoted tag */}
+              {detailsObj?.info?.avgRating > 4.2 ? (
+                <CardPromotedLable resData={detailsObj} />
+              ) : (
+                <CardContainer resData={detailsObj} />
+              )}
             </Link>
           );
         })}

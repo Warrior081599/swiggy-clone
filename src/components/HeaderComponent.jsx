@@ -8,7 +8,7 @@ const HeaderComponent = () => {
   const isOnline = useUserOnline();
 
   return (
-    <header className=" p-3 border-gray-400 border-solid border-[1px]  flex flex-row justify-between ">
+    <header className=" p-3 bg-gray-100 border-gray-400 border-solid border-[1px]  flex flex-row justify-between  shadow-lg">
       <img className="w-[100px] h-[100px]" src={LOGO_URL} alt="logo"></img>
 
       <div className="flex flex-row  justify-center">

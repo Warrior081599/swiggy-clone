@@ -16,7 +16,6 @@ const MainContainer = () => {
     <div className="main-container">
       <HeaderComponent />
       <Outlet />
-      <FooterComponent />
     </div>
   );
 };
