@@ -10,7 +10,6 @@ class UserClass extends React.Component {
         name: "",
         bio: "",
         location: "",
-        avatar_url: "",
       },
     };
   }

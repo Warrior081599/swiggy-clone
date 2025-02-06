@@ -1,16 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import ItemList from "./ItemList";
-import { useState } from "react";
 
-const RestaurantCategory = ({ data }) => {
-  const [showItemList, setShoItemList] = useState(false);
-
+const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
   const title = data?.title;
-  console.log(data);
 
-  const handleClick = () => {
-    setShoItemList(!showItemList);
-  };
+  function handleClick() {
+    setShowIndex();
+  }
 
   return (
     <div>
@@ -26,7 +22,7 @@ const RestaurantCategory = ({ data }) => {
           </span>
           <span>⬇️</span>
         </div>
-        {showItemList && <ItemList key={uuidv4()} data={data} />}
+        {showItems && <ItemList key={uuidv4()} data={data} />}
       </div>
     </div>
   );

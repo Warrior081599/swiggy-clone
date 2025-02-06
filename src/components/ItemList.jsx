@@ -1,12 +1,24 @@
 import { v4 as uuidv4 } from "uuid";
 import { IMG_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/cartSlice";
 
 const ItemList = ({ data }) => {
+  console.log("Data received in ItemList:", data);
+  const dispatch = useDispatch();
+
+  //Here we are dispacthing an action what action addItem action and mutating  the state
+  const handleClick = () => {
+    console.log("Dispatching addItem with data:", data);
+    dispatch(addItem(data));
+  };
+
   return (
     <div>
       <div>
         {data?.itemCards ? (
           data?.itemCards?.map((itemCard) => {
+            if (!itemCard?.card?.info) return null;
             const { name, description, imageId } = itemCard.card.info;
             return (
               <div
@@ -27,7 +39,10 @@ const ItemList = ({ data }) => {
                 </div>
                 <div className="w-3/12 p-4 relative">
                   <div className="absolute inset-x-0 top-0 flex justify-center">
-                    <button className="p-2 rounded-lg bg-black text-white shadow-lg">
+                    <button
+                      className="p-2 rounded-lg bg-black text-white shadow-lg cursor-pointer"
+                      onClick={handleClick}
+                    >
                       Add +
                     </button>
                   </div>
@@ -67,7 +82,10 @@ const ItemList = ({ data }) => {
                         </div>
                         <div className="w-3/12 p-4 relative">
                           <div className="absolute inset-x-0 top-0 flex justify-center">
-                            <button className="p-2 rounded-lg bg-black text-white shadow-lg">
+                            <button
+                              className="p-2 rounded-lg bg-black text-white shadow-lg"
+                              onClick={handleClick}
+                            >
                               Add +
                             </button>
                           </div>

@@ -2,10 +2,20 @@ import { LOGO_URL } from "../utils/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useUserOnline from "../utils/useUserOnline";
+import UserContext from "../utils/userContext";
+import { useContext } from "react";
+import { useSelector } from "react-redux";
+import { lazy } from "react";
 
 const HeaderComponent = () => {
   const [login, setLogin] = useState("Login");
   const isOnline = useUserOnline();
+  const userData = useContext(UserContext);
+  const { loggedIn } = userData;
+
+  //Now we are using "useSelector" to subscribe to store (subscribing to the store using selector)
+
+  const cartItems = useSelector((store) => store.cart.items);
 
   return (
     <header className=" p-3 bg-gray-100 border-gray-400 border-solid border-[1px]  flex flex-row justify-between  shadow-lg">
@@ -35,10 +45,13 @@ const HeaderComponent = () => {
               Contact Us
             </li>
           </Link>
-          <li className="m-3  hover:bg-gray-600  hover:rounded-xl hover:text-white hover:p-2 ">
-            Cart
-          </li>
+          <Link to="/cart" className="cursor-pointer">
+            <li className="m-3   hover:bg-gray-600  hover:rounded-xl hover:text-white hover:p-2 font-bold ">
+              Cart : ({cartItems.length}) - items
+            </li>
+          </Link>
         </ul>
+        <span className="mt-[35px] font-bold"> {loggedIn}</span>
         <button
           className="m-3 justify-center mt-7 bg-gray-300 rounded-lg p-[10px] w-[60px] h-[40px]  border-[1px] border-solid border-black hover:bg-gray-600  hover:rounded-xl hover:text-white hover:p-2 "
           onClick={() =>

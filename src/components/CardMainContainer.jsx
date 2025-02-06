@@ -1,9 +1,10 @@
 import CardContainer, { CardWithPromotedLabel } from "./CardContainer.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Shimmer from "./Shimmer.jsx";
 import { RESTURENT_URL } from "../utils/constants.js";
 import { Link } from "react-router-dom";
 import useMainResMenu from "../utils/useMainResMenu.js";
+import UserContext from "../utils/userContext.js";
 
 const CardMainContainer = () => {
   const [resList, filteredValue, setResList, setFilteredValue] =
@@ -11,6 +12,8 @@ const CardMainContainer = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const CardPromotedLable = CardWithPromotedLabel(CardContainer);
+  const loggedInData = useContext(UserContext);
+  const { loggedIn, setUser } = loggedInData;
 
   //Conditional Rendering : THis is called conditional rendering
 
@@ -32,6 +35,17 @@ const CardMainContainer = () => {
           Filter Top Rated Resturent
         </button>
 
+        {/** Here making the feature when we input the name it will change directly the global context */}
+        <div className="mx-4">
+          <label htmlFor="input">User Name: </label>
+          <input
+            type="text"
+            id="input"
+            className="border border-black"
+            value={loggedIn}
+            onChange={(e) => setUser(e.target.value)}
+          ></input>
+        </div>
         <div className="mr-8 flex flex-row mt-4 items-center">
           <input
             className="placeholder-black border-solid border-1 w-[200px] h-[40px] border-black p-1 pl-4 mr-6 rounded-xl bg-gray-100 hover:bg-blue-300 hover:placeholder-white hover:scale-120 hover:duration-300 hover:ease-in-out"

@@ -1,7 +1,11 @@
 import { IMG_URL } from "../utils/constants";
+import UserContext from "../utils/userContext";
+import { useContext } from "react";
 
 const CardContainer = (props) => {
   const { resData } = props;
+  const userData = useContext(UserContext);
+  const { loggedIn } = userData;
 
   const {
     id,
@@ -26,6 +30,7 @@ const CardContainer = (props) => {
         <h4>{avgRatingString} ⭐</h4>
         <h4>{areaName}</h4>
         <h4 className="font-medium">{sla.deliveryTime} Mins 🏍️ </h4>
+        <span>{loggedIn}</span>
       </div>
     </div>
   );
