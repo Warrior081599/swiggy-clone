@@ -24,13 +24,16 @@ it("Should render Card Main Container with search", async () => {
   const searchBtn = screen.getByRole("button", { name: "Search" });
   const searchInput = screen.getByTestId("searchBox");
 
+  const cardsBeforeSearch = screen.getAllByTestId("cardContainer");
+  expect(cardsBeforeSearch.length).toBe(8);
+
   //Firing the change event
 
   fireEvent.change(searchInput, { target: { value: "wok" } });
   fireEvent.click(searchBtn);
 
-  const cards = screen.getAllByTestId("cardContainer");
+  const cardsAfterSearch = screen.getAllByTestId("cardContainer");
 
   expect(searchBtn).toBeInTheDocument();
-  expect(cards.length).toBe(1);
+  expect(cardsAfterSearch.length).toBe(1);
 });
