@@ -18,7 +18,10 @@ const CardContainer = (props) => {
   } = resData.info;
 
   return (
-    <div className=" w-[250px] h-auto p-3 m-3 bg-gray-100 rounded-lg hover:bg-gray-400 hover:shadow-2xl hover:text-white hover:scale-105 hover:duration-300 hover:ease-in-out">
+    <div
+      data-testid="cardContainer"
+      className=" w-[250px] h-auto p-3 m-3 bg-gray-100 rounded-lg hover:bg-gray-400 hover:shadow-2xl hover:text-white hover:scale-105 hover:duration-300 hover:ease-in-out"
+    >
       <img
         className=" justify-center rounded-lg w-auto h-auto p-2 mx-auto"
         src={IMG_URL + cloudinaryImageId}

@@ -25,9 +25,6 @@ const RestaurantMenu = () => {
     )
     .filter((obj) => obj?.title);
 
-  console.log("restaurantInfo", restaurantInfo);
-  console.log("restaurantMenuDetails", restaurantMenuDetails);
-
   return (
     <div className="mb-[40px]">
       <h1 className="text-center text-xl bold font-bold">

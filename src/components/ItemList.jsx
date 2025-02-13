@@ -1,16 +1,17 @@
+//ItemList.jsx
+
 import { v4 as uuidv4 } from "uuid";
 import { IMG_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addItem } from "../store/cartSlice";
 
 const ItemList = ({ data }) => {
-  console.log("Data received in ItemList:", data);
   const dispatch = useDispatch();
 
-  //Here we are dispacthing an action what action addItem action and mutating  the state
-  const handleClick = () => {
-    console.log("Dispatching addItem with data:", data);
-    dispatch(addItem(data));
+  //Here we are dispatching an action what action addItem action and mutating  the state
+  const handleClick = (itemCard) => {
+    // Changed handleClick to accept itemCard
+    dispatch(addItem(itemCard)); // Now dispatching itemCard itself
   };
 
   return (
@@ -18,7 +19,6 @@ const ItemList = ({ data }) => {
       <div>
         {data?.itemCards ? (
           data?.itemCards?.map((itemCard) => {
-            if (!itemCard?.card?.info) return null;
             const { name, description, imageId } = itemCard.card.info;
             return (
               <div
@@ -41,7 +41,7 @@ const ItemList = ({ data }) => {
                   <div className="absolute inset-x-0 top-0 flex justify-center">
                     <button
                       className="p-2 rounded-lg bg-black text-white shadow-lg cursor-pointer"
-                      onClick={handleClick}
+                      onClick={() => handleClick(itemCard)} // Passing itemCard to handleClick
                     >
                       Add +
                     </button>
@@ -84,7 +84,7 @@ const ItemList = ({ data }) => {
                           <div className="absolute inset-x-0 top-0 flex justify-center">
                             <button
                               className="p-2 rounded-lg bg-black text-white shadow-lg"
-                              onClick={handleClick}
+                              onClick={() => handleClick(itemCard)} // Passing itemCard to handleClick
                             >
                               Add +
                             </button>

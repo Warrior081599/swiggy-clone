@@ -50,6 +50,7 @@ const CardMainContainer = () => {
           <input
             className="placeholder-black border-solid border-1 w-[200px] h-[40px] border-black p-1 pl-4 mr-6 rounded-xl bg-gray-100 hover:bg-blue-300 hover:placeholder-white hover:scale-120 hover:duration-300 hover:ease-in-out"
             type="text"
+            data-testid="searchBox"
             placeholder="Search the food"
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}

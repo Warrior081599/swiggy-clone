@@ -1,6 +1,7 @@
 .parcel-cache/
 dist/
 node_modules/
-tailwind.config.js
-postcss.config.js
-.postcssrc
+# tailwind.config.js
+# postcss.config.js
+# .postcssrc
+/coverage
